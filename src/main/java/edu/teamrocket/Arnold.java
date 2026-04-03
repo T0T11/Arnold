@@ -3,8 +3,26 @@ import java.lang.Enum.EnumDesc;
 import edu.teamrocket.Planetas;
 
 public class Arnold {
-    public  static double peso = 90;
-      static  void  main( String[] args) {
+    private double peso ;
+    private static Arnold instance; /* tiene que el constructor ser privado*/
+
+    private Arnold(double peso) /* constructor privado*/ {
+        this.peso = peso;
+    }
+
+    public static Arnold getInstance(double peso ){
+        if (instance == null) {
+            instance = new Arnold(peso);
+        }
+        return  instance; /*esto es el Singleton*/
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+
+    public void Ejecucion() {
           for (Planetas planetas : Planetas.values() ) {
               System.out.println("Your weight on %s is %f N%n",planetas.name(), planetas.pesoSuperficie(peso);}
 
@@ -23,7 +41,11 @@ public class Arnold {
               System.out.println("Your weight on %s is %f N%n", planetas.name(), planetas.pesoSuperficie(peso);
           }
 
-
      }
+
+    public static void main(String[] args) {
+        Arnold arnold = Arnold.getInstance(90); /*mi peso */
+        arnold.Ejecucion();
+    }
 
 }
